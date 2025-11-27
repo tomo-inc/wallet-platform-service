@@ -7,10 +7,13 @@ import com.tomo.core.pojo.dto.EarningProtocolRecordDTO;
 import java.util.List;
 
 public interface ProjectEarningsProvider<C extends ProjectContext> {
-    String getProjectId();
-    String getProjectName();
-    List<EarningProtocolDTO> getEarningsProtocols();
+  default String getProjectId() {
+    return null;
+  }
 
-    List<EarningProtocolRecordDTO> selectEarningProtocolRecords();
+  String getProjectName();
+
+  List<EarningProtocolDTO> getEarningsProtocols();
+
+  List<EarningProtocolRecordDTO> selectEarningProtocolRecords();
 }
-

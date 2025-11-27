@@ -27,26 +27,16 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-public class WLFIProjectEarningService extends AbstractProjectService<WLFIContext> implements ProjectEarningsProvider<WLFIContext> {
-
-    private static final Set<String> WLFI_SUPPORTED_CHAINS = Set.of(
-            "ethereum",
-            "polygon",
-            "bsc"
-    );
+public class WLFIProjectEarningService implements ProjectEarningsProvider<WLFIContext> {
 
     @PostConstruct
     public void init() {
         log.info("WLFIProjectAssetService initialized, projectId: {}", getProjectId());
     }
 
-    /**
-     * Create WLFI project context
-     * No need to override getProjectId() - it's automatically retrieved from context
-     */
     @Override
-    protected WLFIContext createProjectContext() {
-        return new WLFIContext(WLFI_SUPPORTED_CHAINS);
+    public String getProjectId() {
+        return "WLFI";
     }
 
     @Override

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 /** Earning Controller */
 @Slf4j
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/core")
 public class EarningCore {
 
   @Autowired private EarningCoreService earningCoreService;
@@ -19,7 +19,7 @@ public class EarningCore {
       summary = "Get maximum APY across all protocols",
       description =
           "Returns the highest APY available across all protocols, including protocol and chain information")
-  @GetMapping("/earnings/max-apy")
+  @GetMapping("/earning/max-apy")
   public EarningMaxApyDTO getEarningsMaxApy(@RequestHeader(required = false) String projectId) {
     return earningCoreService.getEarningsMaxApy(projectId);
   }
