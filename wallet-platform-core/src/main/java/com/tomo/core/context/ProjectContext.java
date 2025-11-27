@@ -1,7 +1,5 @@
 package com.tomo.core.context;
 
-import com.tomo.core.enums.ChainEnum;
-
 import java.util.Map;
 import java.util.Set;
 
@@ -19,11 +17,11 @@ public interface ProjectContext {
     String getProjectId();
     
     /**
-     * Get supported blockchain chains
+     * Get supported blockchain chain IDs
      * 
-     * @return set of supported chain enums
+     * @return set of supported chain identifiers
      */
-    Set<ChainEnum> getSupportedChains();
+    Set<String> supportedChains();
     
     /**
      * Get feature flags for this project
