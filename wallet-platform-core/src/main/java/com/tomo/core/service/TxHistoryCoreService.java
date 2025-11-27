@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 @Service
@@ -20,9 +20,23 @@ public class TxHistoryCoreService {
 
     private final Map<String, ProjectTxHistoryProvider<?>> projectTxHistoryProviders;
 
-    public TxHistoryCoreService(List<ProjectTxHistoryProvider<?>> providers) {
-        this.projectTxHistoryProviders = providers.stream().collect(Collectors.toMap(ProjectTxHistoryProvider::getProjectId, provider -> provider));
-        log.info("Initialized TxHistoryCore with {} project txHistory providers", projectTxHistoryProviders.size());
+    public TxHistoryCoreService() {
+        this.projectTxHistoryProviders = new ConcurrentHashMap<>();
+        log.info("Initialized TxHistoryCore");
+    }
+
+    /**
+     * Register a project tx history provider
+     * Called by providers after initialization
+     */
+    public void register(ProjectTxHistoryProvider<?> provider) {
+        String projectId = provider.getProjectId();
+        if (projectId == null) {
+            log.warn("Attempted to register provider with null projectId, skipping");
+            return;
+        }
+        projectTxHistoryProviders.put(projectId, provider);
+        log.info("Registered project txHistory provider for projectId: {}", projectId);
     }
 
     public List<TxHistoryDTO> txHistoryList(String projectId, String walletId, String chainId, String tokenAddress, Integer txType, Long startTime, Long endTime, Integer pageNum, Integer pageSize,
