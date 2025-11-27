@@ -1,0 +1,139 @@
+[
+  {
+    "chainName": "Bitcoin",
+    "chainIndex": 0,
+    "chainType": "BTC",
+    "iconUrl": "https://static.tomo.inc/token/btc.svg",
+    "explorer": "https://btcscan.org",
+    "nativeToken": {
+      "symbol": "btc",
+      "name": "bitcoin",
+      "decimals": 8
+    }
+  },
+  {
+    "chainName": "Ethereum",
+    "chainIndex": 100,
+    "chainType": "EVM",
+    "iconUrl": "https://static.tomo.inc/token/eth_new.svg",
+    "explorer": "https://etherscan.io",
+    "aiFeedNetwork": "ethereum",
+    "nativeToken": {
+      "symbol": "eth",
+      "name": "ethereum",
+      "decimals": 18
+    }
+  },
+  {
+    "chainName": "BNB Chain",
+    "chainIndex": 5600,
+    "chainType": "EVM",
+    "iconUrl": "https://static.tomo.inc/token/bsc_new.svg",
+    "explorer": "https://bscscan.com",
+    "aiFeedNetwork": "bsc",
+    "nativeToken": {
+      "symbol": "bnb",
+      "name": "bnb",
+      "decimals": 18
+    }
+  },
+  {
+    "chainName": "Arbitrum One",
+    "chainIndex": 4216100,
+    "chainType": "EVM",
+    "iconUrl": "https://static.tomo.inc/token/arb.jpeg",
+    "explorer": "https://arbiscan.io",
+    "aiFeedNetwork": "arbitrum",
+    "nativeToken": {
+      "symbol": "eth",
+      "name": "arb_eth",
+      "decimals": 18
+    }
+  },
+  {
+    "chainName": "Optimism",
+    "chainIndex": 1000,
+    "chainType": "EVM",
+    "iconUrl": "https://static.tomo.inc/token/op.svg",
+    "explorer": "https://optimistic.etherscan.io",
+    "aiFeedNetwork": "optimism",
+    "nativeToken": {
+      "symbol": "eth",
+      "name": "op_eth",
+      "decimals": 18
+    }
+  },
+  {
+    "chainName": "Polygon",
+    "chainIndex": 13700,
+    "chainType": "EVM",
+    "iconUrl": "https://static.tomo.inc/token/polygon.svg",
+    "explorer": "https://polygonscan.com",
+    "aiFeedNetwork": "polygon",
+    "nativeToken": {
+      "symbol": "pol",
+      "name": "matic",
+      "decimals": 18
+    }
+  },
+  {
+    "chainName": "Base",
+    "chainIndex": 845300,
+    "chainType": "EVM",
+    "iconUrl": "https://static.tomo.inc/token/base.svg",
+    "explorer": "https://basescan.org",
+    "aiFeedNetwork": "base",
+    "nativeToken": {
+      "symbol": "eth",
+      "name": "base_eth",
+      "decimals": 18
+    }
+  },
+  {
+    "chainName": "Solana",
+    "chainIndex": 50100,
+    "chainType": "SOLANA",
+    "iconUrl": "https://static.tomo.inc/token/sol.svg",
+    "aiFeedNetwork": "solana",
+    "nativeToken": {
+      "symbol": "sol",
+      "name": "solana",
+      "decimals": 9
+    }
+  },
+  {
+    "chainName": "Tron",
+    "chainIndex": 1948400,
+    "chainType": "TRON",
+    "iconUrl": "https://static.tomo.inc/token/tron.svg",
+    "aiFeedNetwork": "tron",
+    "nativeToken": {
+      "symbol": "trx",
+      "name": "tron",
+      "decimals": 6
+    }
+  },
+  {
+    "chainName": "Dogecoin",
+    "chainIndex": 300,
+    "chainType": "DOGE",
+    "iconUrl": "https://static.tomo.inc/token/doge.svg",
+    "nativeToken": {
+      "symbol": "doge",
+      "name": "dogecoin",
+      "decimals": 8
+    }
+  },
+  {
+    "chainName": "DogeOS Testnet",
+    "chainIndex": 628197100,
+    "chainType": "EVM",
+    "iconUrl": "https://static.tomo.inc/token/doge.svg",
+    "explorer": "https://faucet.testnet.dogeos.com",
+    "nativeToken": {
+      "symbol": "DOGE",
+      "name": "doge_testnet",
+      "decimals": 18
+    }
+  }
+]

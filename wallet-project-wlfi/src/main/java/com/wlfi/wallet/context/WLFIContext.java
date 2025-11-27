@@ -1,6 +1,7 @@
 package com.wlfi.wallet.context;
 
 import com.tomo.core.context.ProjectContext;
+import com.tomo.core.enums.ChainEnum;
 
 import java.util.Collections;
 import java.util.Map;
@@ -12,11 +13,18 @@ import java.util.Set;
  */
 public class WLFIContext implements ProjectContext {
 
-    private final Set<String> supportedChains;
 
-    public WLFIContext(Set<String> supportedChains) {
-        this.supportedChains = supportedChains;
-    }
+    private static final Set<ChainEnum> WLFI_SUPPORTED_CHAINS = Set.of(
+        ChainEnum.BTC,
+        ChainEnum.ETH,
+        ChainEnum.BSC,
+        ChainEnum.SOL,
+        ChainEnum.BASE,
+        ChainEnum.ARBITRUM,
+        ChainEnum.OPTIMISM,
+        ChainEnum.POLYGON,
+        ChainEnum.DOGE
+    );
 
     @Override
     public String getProjectId() {
@@ -24,8 +32,8 @@ public class WLFIContext implements ProjectContext {
     }
 
     @Override
-    public Set<String> getSupportedChains() {
-        return supportedChains;
+    public Set<ChainEnum> getSupportedChains() {
+        return WLFI_SUPPORTED_CHAINS;
     }
 
     @Override
