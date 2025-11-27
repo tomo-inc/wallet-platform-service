@@ -19,8 +19,8 @@ public class EarningCore {
       summary = "Get maximum APY across all protocols",
       description =
           "Returns the highest APY available across all protocols, including protocol and chain information")
-  @GetMapping("{projectId}/earnings/max-apy")
-  public EarningMaxApyDTO getEarningsMaxApy(@PathVariable String projectId) {
+  @GetMapping("/earnings/max-apy")
+  public EarningMaxApyDTO getEarningsMaxApy(@RequestHeader(required = false) String projectId) {
     return earningCoreService.getEarningsMaxApy(projectId);
   }
 }
