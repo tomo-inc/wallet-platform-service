@@ -4,15 +4,9 @@ import com.tomo.core.context.ProjectContext;
 import com.tomo.core.controller.ChainRegistryCore;
 import com.tomo.core.controller.PortfolioCore;
 import com.tomo.core.controller.TokenCatalogCore;
-import com.tomo.core.pojo.dto.AddressDTO;
-import com.tomo.core.pojo.dto.BasePortfolioDTO;
-import com.tomo.core.pojo.dto.ProjectPortfolioExtension;
-import com.tomo.core.pojo.dto.SwapTokenDTO;
-import com.tomo.core.service.provider.ProjectAssetProvider;
-import com.tomo.core.service.provider.ProjectTokenProvider;
+
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.List;
 
 /**
  * Abstract Project Service Base Class
@@ -27,8 +21,7 @@ import java.util.List;
  * @param <C> Project context type that extends ProjectContext
  */
 @Slf4j
-public abstract class AbstractProjectService<C extends ProjectContext>
-        implements ProjectAssetProvider<C>, ProjectTokenProvider<C> {
+public abstract class AbstractProjectService<C extends ProjectContext> {
 
     /**
      * Core platform service dependencies
@@ -75,60 +68,8 @@ public abstract class AbstractProjectService<C extends ProjectContext>
         return projectContext;
     }
 
-    /**
-     * Get project ID from context
-     * No need to override in subclasses - automatically gets from ProjectContext
-     *
-     * @return project ID
-     */
-    @Override
-    public final String getProjectId() {
+    public String getProjectId() {
         return getProjectContext().getProjectId();
     }
-
-    /**
-     * Template method for portfolio extension
-     * Provides common workflow: validation -> extension -> error handling
-     */
-    @Override
-    public ProjectPortfolioExtension extendPortfolio(
-            C context,
-            Long userId,
-            List<AddressDTO> addresses,
-            BasePortfolioDTO basePortfolioDTO) {
-
-        return doExtendPortfolio(context, userId, addresses, basePortfolioDTO);
-    }
-
-    /**
-     * Project-specific portfolio extension logic
-     * Subclasses can override this method to add their custom asset logic
-     *
-     * @param context          project context with configuration
-     * @param userId           platform user ID
-     * @param addresses        user's addresses across chains
-     * @param basePortfolioDTO base portfolio from core platform
-     * @return project-specific portfolio extension
-     */
-    protected ProjectPortfolioExtension doExtendPortfolio(
-            C context,
-            Long userId,
-            List<AddressDTO> addresses,
-            BasePortfolioDTO basePortfolioDTO) {
-        // use injected core services
-        // Example: query wallet's special tokens for current project
-        return ProjectPortfolioExtension.empty();
-    }
-
-    /**
-     * Get project-specific tokens for swap
-     * Default implementation returns empty list
-     * Projects should override to provide their tokens
-     *
-     * @param chainId optional chain filter
-     * @return list of project-specific swap tokens
-     */
-    @Override
-    public abstract List<SwapTokenDTO> getProjectTokens(String chainId);
 }
 

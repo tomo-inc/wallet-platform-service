@@ -1,7 +1,7 @@
 package com.wlfi.wallet.controller;
 
 import com.tomo.core.pojo.dto.SwapTokenDTO;
-import com.wlfi.wallet.service.WLFIProjectService;
+import com.wlfi.wallet.service.WLFIProjectTokenService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +24,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class WLFIProjectController {
 
-    private final WLFIProjectService wlfiProjectService;
+    private final WLFIProjectTokenService wlfiProjectService;
 
     /**
      * Get WLFI project information
