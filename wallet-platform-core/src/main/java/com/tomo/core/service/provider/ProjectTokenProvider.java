@@ -6,7 +6,9 @@ import com.tomo.core.pojo.dto.SwapTokenDTO;
 import java.util.List;
 
 public interface ProjectTokenProvider<C extends ProjectContext> {
-    String getProjectId();
+    default String getProjectId() {
+        return null;
+    }
     List<SwapTokenDTO> getProjectTokens(String chainId);
 }
 

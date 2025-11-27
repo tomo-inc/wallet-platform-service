@@ -1,9 +1,6 @@
 package com.tomo.core.service;
 
 import com.tomo.core.context.ProjectContext;
-import com.tomo.core.controller.ChainRegistryCore;
-import com.tomo.core.controller.PortfolioCore;
-import com.tomo.core.controller.TokenCatalogCore;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,29 +21,9 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class AbstractProjectService<C extends ProjectContext> {
 
     /**
-     * Core platform service dependencies
-     * These are injected by constructor and available to all project implementations
-     */
-    protected final ChainRegistryCore chainRegistry;
-    protected final TokenCatalogCore tokenCatalog;
-    protected final PortfolioCore portfolioCore;
-
-    /**
      * Project context instance (lazy initialized)
      */
     private C projectContext;
-
-    /**
-     * Constructor with core service dependencies
-     * Subclasses should call super() to initialize core services
-     */
-    protected AbstractProjectService(ChainRegistryCore chainRegistry,
-                                     TokenCatalogCore tokenCatalog,
-                                     PortfolioCore portfolioCore) {
-        this.chainRegistry = chainRegistry;
-        this.tokenCatalog = tokenCatalog;
-        this.portfolioCore = portfolioCore;
-    }
 
     /**
      * Create project context instance
