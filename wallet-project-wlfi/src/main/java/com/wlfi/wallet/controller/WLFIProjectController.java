@@ -2,6 +2,7 @@ package com.wlfi.wallet.controller;
 
 import com.tomo.core.common.Result;
 import com.tomo.core.pojo.dto.SwapTokenDTO;
+import com.wlfi.wallet.service.WLFIProjectTokenService;
 import com.wlfi.wallet.vo.ChainInfoVO;
 import com.wlfi.wallet.service.ChainService;
 import com.wlfi.wallet.service.WLFIProjectService;
@@ -27,7 +28,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class WLFIProjectController {
 
-    private final WLFIProjectService wlfiProjectService;
+    private final WLFIProjectTokenService wlfiProjectService;
     private final ChainService chainService;
     /**
      * Get WLFI project information

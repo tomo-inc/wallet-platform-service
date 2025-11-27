@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 28081
 
 spring:
   datasource:
@@ -7,7 +7,17 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
-    password: QWEsht123
+    password: Dev123!@#
+  data:
+    redis:
+      mode: standalone
+      host: localhost
+      port: 6379
+      username: default
+      password: dev123456
+      database: 0
+      ssl:
+        enabled: false
 
 # MyBatis Plus Configuration
 mybatis-plus:
