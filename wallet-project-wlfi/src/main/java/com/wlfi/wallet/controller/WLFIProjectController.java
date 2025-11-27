@@ -53,7 +53,7 @@ public class WLFIProjectController {
     }
 
 
-    @GetMapping(value = {"/wallet/common/queryChainInfo"})
+    @GetMapping(value = {"/wallet/common/chainInfo"})
     public Result<List<ChainInfoVO>> queryChainInfo() {
         log.info("Query chain info for WLFI");
         return Result.success(chainService.queryChainInfo());
