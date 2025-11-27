@@ -1,51 +1,108 @@
 package com.wlfi.wallet.service;
 
-import com.tomo.core.controller.ChainRegistryCore;
-import com.tomo.core.controller.PortfolioCore;
-import com.tomo.core.controller.TokenCatalogCore;
 import com.tomo.core.pojo.dto.*;
-import com.tomo.core.service.AbstractProjectService;
-import com.tomo.core.service.provider.ProjectAssetProvider;
-import com.tomo.core.service.provider.ProjectEarningsProvider;
+import com.tomo.core.service.provider.ProjectEarningProvider;
+import com.tomo.core.util.EarningUtil;
 import com.wlfi.wallet.context.WLFIContext;
-import jakarta.annotation.PostConstruct;
-
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  * WLFI Project Service Implementation
- * Extends core portfolio with WLFI-specific features:
- * - Staked tokens
- * - Vesting schedules
- * - Governance power
- * - Reward calculations
  */
 @Slf4j
 @Service
-public class WLFIProjectEarningService implements ProjectEarningsProvider<WLFIContext> {
+public class WLFIProjectEarningService implements ProjectEarningProvider<WLFIContext> {
 
-    @PostConstruct
-    public void init() {
-        log.info("WLFIProjectAssetService initialized, projectId: {}", getProjectId());
+  @Autowired private WLFIContext context;
+
+  @Override
+  public String getProjectId() {
+    return context.getProjectId();
+  }
+
+  @Override
+  public EarningMaxApyDTO getEarningMaxApy() {
+    List<EarningProtocolDTO> earningProtocols = getEarningProtocols();
+    try {
+      // Get APY data for all chains
+      Map<String, String> chainApyMap = getChainApyMap();
+      if (chainApyMap.isEmpty()) {
+        return EarningMaxApyDTO.builder().maxApy("0.0000").build();
+      }
+
+      // Find the protocol with maximum APY
+      Map.Entry<String, String> maxEntry =
+          chainApyMap.entrySet().stream()
+              .max(
+                  (e1, e2) -> {
+                    try {
+                      BigDecimal apy1 = new BigDecimal(e1.getValue());
+                      BigDecimal apy2 = new BigDecimal(e2.getValue());
+                      return apy1.compareTo(apy2);
+                    } catch (NumberFormatException ex) {
+                      log.warn("Invalid APY format: {} or {}", e1.getValue(), e2.getValue());
+                      return 0;
+                    }
+                  })
+              .orElse(null);
+
+      // Get protocol information
+      String protocolCode = maxEntry.getKey();
+      EarningProtocolDTO protocol =
+          earningProtocols.stream()
+              .filter(p -> p.getCode().equals(protocolCode))
+              .findFirst()
+              .orElse(null);
+      if (protocol == null) {
+        return EarningMaxApyDTO.builder().maxApy("0.0000").build();
+      }
+
+      // Build response
+      return EarningMaxApyDTO.builder()
+          .maxApy(EarningUtil.formatApy(new BigDecimal(maxEntry.getValue())))
+          .protocol(context.getProjectId())
+          // .chainName(chainEnum != null ? chainEnum.getChainName() : "Unknown")
+          .chainIndex(String.valueOf(protocol.getChainIndex()))
+          .build();
+
+    } catch (Exception e) {
+      log.error("Failed to get maximum APY", e);
+      return EarningMaxApyDTO.builder().maxApy("0.0000").build();
+    }
+  }
+
+  /**
+   * Get APY data for all chains, prioritize on-chain data, if not available get the highest APY
+   * from the latest database records
+   *
+   * @return Map<String, String> key is protocol code, value is APY value
+   */
+  private Map<String, String> getChainApyMap() {
+    Map<String, String> apyMap = new HashMap<>();
+
+    try {
+      List<EarningProtocolRecordDTO> latestRecords = selectEarningProtocolRecords();
+      for (EarningProtocolRecordDTO record : latestRecords) {
+        if (record.getApy() != null && record.getProtocol() != null) {
+          apyMap.put(record.getProtocol(), record.getApy().toPlainString());
+        }
+      }
+      log.info("Successfully retrieved APY data from database, protocols: {}", apyMap.size());
+    } catch (Exception e) {
+      log.error("Failed to retrieve APY data from database", e);
     }
 
-    @Override
-    public String getProjectId() {
-        return "WLFI";
-    }
+    return apyMap;
+  }
 
-    @Override
-    public String getProjectName() {
-        return "WLFI Project";
-    }
-
-    @Override
-    public List<EarningProtocolDTO> getEarningsProtocols() {
+  @Override
+  public List<EarningProtocolDTO> getEarningProtocols() {
 
         EarningProtocolDTO lista =
                 EarningProtocolDTO.builder()

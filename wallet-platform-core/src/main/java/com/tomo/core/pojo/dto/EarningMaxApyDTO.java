@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Earnings Maximum APY")
+@Schema(description = "Earning Maximum APY")
 public class EarningMaxApyDTO {
 
   @Schema(description = "Maximum APY value", example = "3.5000")
