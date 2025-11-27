@@ -8,8 +8,10 @@ import com.tomo.core.pojo.dto.ProjectPortfolioExtension;
 import java.util.List;
 
 public interface ProjectAssetProvider<C extends ProjectContext> {
-    String getProjectId();
-    
+    default String getProjectId() {
+        return null;
+    }
+
     ProjectPortfolioExtension extendPortfolio(
             C context,
             Long userId,

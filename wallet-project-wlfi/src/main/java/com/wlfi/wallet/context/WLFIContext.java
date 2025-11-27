@@ -10,22 +10,11 @@ import java.util.Set;
  * WLFI Project Context Implementation
  * Defines WLFI project configuration and supported chains
  */
-public class WLFIContext implements ProjectContext {
-
-    private final Set<String> supportedChains;
-
-    public WLFIContext(Set<String> supportedChains) {
-        this.supportedChains = supportedChains;
-    }
+public record WLFIContext(Set<String> supportedChains) implements ProjectContext {
 
     @Override
     public String getProjectId() {
         return "WLFI";
-    }
-
-    @Override
-    public Set<String> getSupportedChains() {
-        return supportedChains;
     }
 
     @Override

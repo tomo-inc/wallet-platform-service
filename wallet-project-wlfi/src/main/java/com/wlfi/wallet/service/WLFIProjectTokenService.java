@@ -1,15 +1,9 @@
 package com.wlfi.wallet.service;
 
-import com.tomo.core.controller.ChainRegistryCore;
-import com.tomo.core.controller.PortfolioCore;
-import com.tomo.core.controller.TokenCatalogCore;
 import com.tomo.core.pojo.dto.SwapTokenDTO;
-import com.tomo.core.service.AbstractProjectService;
 import com.tomo.core.service.provider.ProjectTokenProvider;
 import com.wlfi.wallet.context.WLFIContext;
-import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -25,38 +19,14 @@ import java.util.*;
  */
 @Slf4j
 @Service
-public class WLFIProjectTokenService extends AbstractProjectService<WLFIContext> implements ProjectTokenProvider<WLFIContext> {
+public class WLFIProjectTokenService implements ProjectTokenProvider<WLFIContext> {
 
-    private static final Set<String> WLFI_SUPPORTED_CHAINS = Set.of(
-            "ethereum",
-            "polygon",
-            "bsc"
-    );
+    private final WLFIContext context;
 
-    /**
-     * Constructor with core service dependencies
-     */
-    public WLFIProjectTokenService(
-            @Lazy ChainRegistryCore chainRegistry,
-            @Lazy TokenCatalogCore tokenCatalog,
-            @Lazy PortfolioCore portfolioCore) {
-        super(chainRegistry, tokenCatalog, portfolioCore);
+    public WLFIProjectTokenService(WLFIContext context) {
+        this.context = context;
+        log.info("init, projectId: {}", context.getProjectId());
     }
-
-    @PostConstruct
-    public void init() {
-        log.info("WLFI Project Service initialized, projectId: {}", getProjectId());
-    }
-
-    /**
-     * Create WLFI project context
-     * No need to override getProjectId() - it's automatically retrieved from context
-     */
-    @Override
-    protected WLFIContext createProjectContext() {
-        return new WLFIContext(WLFI_SUPPORTED_CHAINS);
-    }
-
 
     /**
      * Provide WLFI-specific swap tokens

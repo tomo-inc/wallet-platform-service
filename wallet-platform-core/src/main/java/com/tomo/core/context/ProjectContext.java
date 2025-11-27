@@ -21,7 +21,7 @@ public interface ProjectContext {
      * 
      * @return set of supported chain identifiers
      */
-    Set<String> getSupportedChains();
+    Set<String> supportedChains();
     
     /**
      * Get feature flags for this project
