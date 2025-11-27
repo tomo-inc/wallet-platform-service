@@ -2,10 +2,11 @@ package com.wlfi.wallet.service;
 
 import com.google.common.collect.Lists;
 import com.tomo.core.pojo.dto.history.TxHistoryDTO;
+import com.tomo.core.service.TxHistoryCoreService;
 import com.tomo.core.service.provider.ProjectTxHistoryProvider;
 import com.wlfi.wallet.context.WLFIContext;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,10 +17,22 @@ public class WLFIProjectTxHistoryService  implements ProjectTxHistoryProvider<WL
 
 
     private final WLFIContext context;
+    private final TxHistoryCoreService txHistoryCoreService;
 
-    public WLFIProjectTxHistoryService(WLFIContext context) {
+    public WLFIProjectTxHistoryService(WLFIContext context, TxHistoryCoreService txHistoryCoreService) {
         this.context = context;
+        this.txHistoryCoreService = txHistoryCoreService;
         log.info("init, projectId: {}", context.getProjectId());
+    }
+
+    @PostConstruct
+    public void register() {
+        txHistoryCoreService.register(this);
+    }
+
+    @Override
+    public String getProjectId() {
+        return context.getProjectId();
     }
 
     @Override
