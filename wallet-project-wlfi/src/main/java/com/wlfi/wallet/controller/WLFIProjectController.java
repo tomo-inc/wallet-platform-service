@@ -5,7 +5,6 @@ import com.tomo.core.pojo.dto.SwapTokenDTO;
 import com.wlfi.wallet.service.WLFIProjectTokenService;
 import com.wlfi.wallet.vo.ChainInfoVO;
 import com.wlfi.wallet.service.ChainService;
-import com.wlfi.wallet.service.WLFIProjectService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

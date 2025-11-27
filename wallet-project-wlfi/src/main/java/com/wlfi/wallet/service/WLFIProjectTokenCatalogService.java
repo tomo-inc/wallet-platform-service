@@ -3,6 +3,7 @@ package com.wlfi.wallet.service;
 import com.tomo.core.controller.ChainRegistryCore;
 import com.tomo.core.controller.PortfolioCore;
 import com.tomo.core.controller.TokenCatalogCore;
+import com.tomo.core.enums.ChainEnum;
 import com.tomo.core.pojo.dto.*;
 import com.tomo.core.service.AbstractProjectService;
 import com.tomo.core.service.provider.ProjectTokenCatalogProvider;
@@ -26,12 +27,6 @@ import java.util.*;
 @Service
 public class WLFIProjectTokenCatalogService extends AbstractProjectService<WLFIContext> implements ProjectTokenCatalogProvider<WLFIContext> {
 
-    private static final Set<String> WLFI_SUPPORTED_CHAINS = Set.of(
-            "ethereum",
-            "polygon",
-            "bsc"
-    );
-
     /**
      * Constructor with core service dependencies
      */
@@ -53,7 +48,7 @@ public class WLFIProjectTokenCatalogService extends AbstractProjectService<WLFIC
      */
     @Override
     protected WLFIContext createProjectContext() {
-        return new WLFIContext(WLFI_SUPPORTED_CHAINS);
+        return new WLFIContext();
     }
 
 
