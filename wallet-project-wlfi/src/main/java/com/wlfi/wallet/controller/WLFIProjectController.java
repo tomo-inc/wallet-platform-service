@@ -1,10 +1,8 @@
 package com.wlfi.wallet.controller;
 
-import com.tomo.core.common.Result;
 import com.tomo.core.pojo.dto.SwapTokenDTO;
+import com.wlfi.wallet.service.WLFIChainInfoService;
 import com.wlfi.wallet.service.WLFIProjectTokenService;
-import com.wlfi.wallet.vo.ChainInfoVO;
-import com.wlfi.wallet.service.ChainService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +26,7 @@ import java.util.Set;
 public class WLFIProjectController {
 
     private final WLFIProjectTokenService wlfiProjectService;
-    private final ChainService chainService;
+    private final WLFIChainInfoService chainService;
     /**
      * Get WLFI project information
      */
@@ -52,10 +50,4 @@ public class WLFIProjectController {
         return wlfiProjectService.getProjectTokens(chainId);
     }
 
-
-    @GetMapping(value = {"/wallet/common/chainInfo"})
-    public Result<List<ChainInfoVO>> queryChainInfo() {
-        log.info("Query chain info for WLFI");
-        return Result.success(chainService.queryChainInfo());
-    }
 }

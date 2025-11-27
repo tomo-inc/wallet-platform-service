@@ -1,4 +1,4 @@
-package com.wlfi.wallet.vo;
+package com.tomo.core.pojo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,14 +7,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-/**
- * Chain information response object
- */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChainInfoVO {
+public class ChainInfoDTO {
     private String chainName;
     private String oldChainName;
     private Long chainId;
