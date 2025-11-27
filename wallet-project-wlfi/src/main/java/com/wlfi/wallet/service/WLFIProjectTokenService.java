@@ -5,15 +5,15 @@ import com.tomo.core.controller.PortfolioCore;
 import com.tomo.core.controller.TokenCatalogCore;
 import com.tomo.core.pojo.dto.SwapTokenDTO;
 import com.tomo.core.service.AbstractProjectService;
+import com.tomo.core.service.provider.ProjectTokenProvider;
 import com.wlfi.wallet.context.WLFIContext;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * WLFI Project Service Implementation
@@ -25,7 +25,7 @@ import java.util.Set;
  */
 @Slf4j
 @Service
-public class WLFIProjectService extends AbstractProjectService<WLFIContext> {
+public class WLFIProjectTokenService extends AbstractProjectService<WLFIContext> implements ProjectTokenProvider<WLFIContext> {
 
     private static final Set<String> WLFI_SUPPORTED_CHAINS = Set.of(
             "ethereum",
@@ -36,9 +36,10 @@ public class WLFIProjectService extends AbstractProjectService<WLFIContext> {
     /**
      * Constructor with core service dependencies
      */
-    public WLFIProjectService(ChainRegistryCore chainRegistry,
-                              TokenCatalogCore tokenCatalog,
-                              PortfolioCore portfolioCore) {
+    public WLFIProjectTokenService(
+            @Lazy ChainRegistryCore chainRegistry,
+            @Lazy TokenCatalogCore tokenCatalog,
+            @Lazy PortfolioCore portfolioCore) {
         super(chainRegistry, tokenCatalog, portfolioCore);
     }
 
@@ -55,6 +56,7 @@ public class WLFIProjectService extends AbstractProjectService<WLFIContext> {
     protected WLFIContext createProjectContext() {
         return new WLFIContext(WLFI_SUPPORTED_CHAINS);
     }
+
 
     /**
      * Provide WLFI-specific swap tokens
