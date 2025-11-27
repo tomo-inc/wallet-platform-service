@@ -35,16 +35,6 @@ public class WLFIProjectEarningService extends AbstractProjectService<WLFIContex
             "bsc"
     );
 
-    /**
-     * Constructor with core service dependencies
-     */
-    public WLFIProjectEarningService(
-            @Lazy ChainRegistryCore chainRegistry,
-            @Lazy TokenCatalogCore tokenCatalog,
-            @Lazy PortfolioCore portfolioCore) {
-        super(chainRegistry, tokenCatalog, portfolioCore);
-    }
-
     @PostConstruct
     public void init() {
         log.info("WLFIProjectAssetService initialized, projectId: {}", getProjectId());
