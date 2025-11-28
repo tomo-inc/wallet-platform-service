@@ -3,6 +3,7 @@ package com.wlfi.wallet.service;
 import com.tomo.core.pojo.dto.*;
 import com.tomo.core.service.provider.ProjectTokenCatalogProvider;
 import com.wlfi.wallet.context.WLFIContext;
+import com.wlfi.wallet.service.base.WLFIProjectBaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +19,12 @@ import java.util.*;
  */
 @Slf4j
 @Service
-public class WLFIProjectTokenCatalogService implements ProjectTokenCatalogProvider<WLFIContext> {
+public class WLFIProjectTokenCatalogService extends WLFIProjectBaseService<WLFIContext> implements ProjectTokenCatalogProvider<WLFIContext> {
 
-    private final WLFIContext context;
+    public WLFIProjectTokenCatalogService() {
+        WLFIContext context = this.getProjectContext();
+        log.info("init WLFIProjectTokenCatalogService, projectId: {}", context.getProjectId());
 
-    public WLFIProjectTokenCatalogService(WLFIContext context) {
-        this.context = context;
-        log.info("init, projectId: {}", context.getProjectId());
     }
 
     @Override
