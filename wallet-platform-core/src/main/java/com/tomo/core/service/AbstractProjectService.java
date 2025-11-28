@@ -2,6 +2,7 @@ package com.tomo.core.service;
 
 import com.tomo.core.context.ProjectContext;
 
+import com.tomo.core.service.provider.base.ProjectIdProvider;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -18,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
  * @param <C> Project context type that extends ProjectContext
  */
 @Slf4j
-public abstract class AbstractProjectService<C extends ProjectContext> {
+public abstract class AbstractProjectService<C extends ProjectContext> implements ProjectIdProvider {
 
     /**
      * Project context instance (lazy initialized)
